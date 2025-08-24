@@ -175,12 +175,11 @@ export default function App() {
                             <div className="md:w-1/3 text-center">
                                 <div className="relative inline-block group">
                                     <Image
-                                        src="https://placehold.co/400x400/1a202c/ffffff?text=HC"
+                                        src="/dp.png"
                                         alt="Himanshu Choudhary"
-                                        width={256}
-                                        height={256}
-                                        className="rounded-full w-64 h-64 mx-auto border-4 border-purple-500/50 shadow-lg transition-transform duration-500 group-hover:scale-105"
-                                        onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/400x400/1a202c/ffffff?text=HC'; }}
+                                        width={400}
+                                        height={400}
+                                        className="rounded-full w-64 h-64 mx-auto border-4 border-purple-500/50 shadow-lg transition-transform duration-500 group-hover:scale-105 object-cover"
                                     />
                                     <div className="absolute inset-0 rounded-full border-4 border-cyan-400/50 animate-spin-slow"></div>
                                 </div>
@@ -228,7 +227,7 @@ export default function App() {
                             <ProjectCard
                                 title="Chat Application"
                                 description="A real-time chat application using Flutter and Firebase. Supports text messages, image sharing, and push notifications for an interactive experience."
-                                imageUrl="https://images.unsplash.com/photo-1522098635833-216c03d81f44?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                imageUrl="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 tags={['Flutter', 'Firebase Auth', 'Firestore']}
                                 githubUrl="#"
                             />
@@ -249,8 +248,8 @@ export default function App() {
                                 <SkillBadge name="Dart" imageUrl="https://img.icons8.com/color/96/000000/dart.png" />
                                 <SkillBadge name="Firebase" imageUrl="https://img.icons8.com/color/96/000000/firebase.png" />
                                 <SkillBadge name="REST APIs" imageUrl="https://img.icons8.com/fluency/96/000000/api-settings.png" />
-                                <SkillBadge name="Provider" imageUrl="https://img.icons8.com/fluency/96/000000/data-provider.png" />
-                                <SkillBadge name="BLoC" imageUrl="https://img.icons8.com/fluency/96/000000/bloc.png" />
+                                <SkillBadge name="Riverpod" imageUrl="/riverpod.png" />
+                                <SkillBadge name="BLoC" imageUrl="/bloc.png" />
                                 <SkillBadge name="Git" imageUrl="https://img.icons8.com/color/96/000000/git.png" />
                                 <SkillBadge name="GitHub" imageUrl="https://img.icons8.com/nolan/96/github.png" />
                             </div>
@@ -388,11 +387,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
     }, []);
 
     const PlayStoreIcon = () => (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 22V2l18 10-18 10z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 22V2l18 10-18 10z" /></svg>
     );
 
     const AppStoreIcon = () => (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.27a2.23 2.23 0 0 0-1.5.65 2.15 2.15 0 0 0-1.42 1.46A2.1 2.1 0 0 0 9 5.43a2.27 2.27 0 0 0 .15 1 2.2 2.2 0 0 0 .53 1 2.34 2.34 0 0 0 1 .62 2.4 2.4 0 0 0 1.2.18 2.3 2.3 0 0 0-1.18-2 2.24 2.24 0 0 1-.1-2.45A2.22 2.22 0 0 1 12 1.27zm4.29 2.62a5.53 5.53 0 0 0-3.32 1.13 11.2 11.2 0 0 0-2 1.63A11.08 11.08 0 0 0 8.2 9.17a5.5 5.5 0 0 0-2.07 4.4 5.43 5.43 0 0 0 1.5 3.82 5.73 5.73 0 0 0 4 1.6 5.17 5.17 0 0 0 .52 0 5.4 5.4 0 0 0 4.2-2.3 5.5 5.5 0 0 0 .2-5.45 5.43 5.43 0 0 0-2.45-3.35z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.27a2.23 2.23 0 0 0-1.5.65 2.15 2.15 0 0 0-1.42 1.46A2.1 2.1 0 0 0 9 5.43a2.27 2.27 0 0 0 .15 1 2.2 2.2 0 0 0 .53 1 2.34 2.34 0 0 0 1 .62 2.4 2.4 0 0 0 1.2.18 2.3 2.3 0 0 0-1.18-2 2.24 2.24 0 0 1-.1-2.45A2.22 2.22 0 0 1 12 1.27zm4.29 2.62a5.53 5.53 0 0 0-3.32 1.13 11.2 11.2 0 0 0-2 1.63A11.08 11.08 0 0 0 8.2 9.17a5.5 5.5 0 0 0-2.07 4.4 5.43 5.43 0 0 0 1.5 3.82 5.73 5.73 0 0 0 4 1.6 5.17 5.17 0 0 0 .52 0 5.4 5.4 0 0 0 4.2-2.3 5.5 5.5 0 0 0 .2-5.45 5.43 5.43 0 0 0-2.45-3.35z" /></svg>
     );
 
     return (
