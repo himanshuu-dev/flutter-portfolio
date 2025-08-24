@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef, MouseEvent, ChangeEvent, FormEvent } from 'react';
-import { Smartphone, Linkedin, Github, Twitter, Menu, X, ArrowDown, Briefcase, Star, CheckCircle } from 'lucide-react';
+import { Linkedin, Github, Twitter, Menu, X, ArrowDown, Briefcase, Star, CheckCircle } from 'lucide-react';
+import Image from 'next/image';
 
 // --- MAIN APP COMPONENT ---
 export default function App() {
@@ -14,12 +15,12 @@ export default function App() {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
         };
-        const handleMouseMove = (e: MouseEvent<Document>) => {
+        const handleMouseMove = (e: globalThis.MouseEvent) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
 
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener('mousemove', handleMouseMove as any);
+        window.addEventListener('mousemove', handleMouseMove);
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -38,7 +39,7 @@ export default function App() {
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('mousemove', handleMouseMove as any);
+            window.removeEventListener('mousemove', handleMouseMove);
             observer.disconnect();
             document.body.style.overflow = 'auto';
         };
@@ -118,11 +119,11 @@ export default function App() {
                 <section id="home" className="min-h-screen flex flex-col justify-center items-center relative bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
                     <div className="absolute inset-0 bg-black/70"></div>
                     <div className="container mx-auto px-6 text-center relative z-10">
-                        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down bg-clip-text bg-gradient-to-r from-white to-gray-400">
                             Himanshu Choudhary
                         </h1>
                         <p className="text-2xl md:text-3xl text-gray-300 mb-8 animate-fade-in-up">
-                            Flutter Developer | Crafting Beautiful & Performant Mobile Apps
+                            Flutter Developer | Crafting Beautiful &amp; Performant Mobile Apps
                         </p>
                         <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 text-center my-12 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
                             <div className="flex items-center gap-3">
@@ -173,24 +174,26 @@ export default function App() {
                         <div className="flex flex-col md:flex-row items-center gap-12 animate-fade-in">
                             <div className="md:w-1/3 text-center">
                                 <div className="relative inline-block group">
-                                    <img
+                                    <Image
                                         src="https://placehold.co/400x400/1a202c/ffffff?text=HC"
                                         alt="Himanshu Choudhary"
+                                        width={256}
+                                        height={256}
                                         className="rounded-full w-64 h-64 mx-auto border-4 border-purple-500/50 shadow-lg transition-transform duration-500 group-hover:scale-105"
-                                        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { e.currentTarget.src = 'https://placehold.co/400x400/1a202c/ffffff?text=HC'; }}
+                                        onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/400x400/1a202c/ffffff?text=HC'; }}
                                     />
                                     <div className="absolute inset-0 rounded-full border-4 border-cyan-400/50 animate-spin-slow"></div>
                                 </div>
                             </div>
                             <div className="md:w-2/3 text-lg text-gray-300 leading-relaxed">
                                 <p className="mb-4">
-                                    Hello! I'm Himanshu, a passionate Flutter developer with a knack for creating fluid, intuitive, and high-performance mobile applications for both iOS and Android. My journey into mobile development started with a fascination for how a few lines of code could translate into a powerful tool in someone's pocket.
+                                    Hello! I&apos;m Himanshu, a passionate Flutter developer with a knack for creating fluid, intuitive, and high-performance mobile applications for both iOS and Android. My journey into mobile development started with a fascination for how a few lines of code could translate into a powerful tool in someone&apos;s pocket.
                                 </p>
                                 <p className="mb-4">
-                                    I thrive on turning complex problems into simple, beautiful, and user-friendly designs. I'm proficient in Dart, Firebase, and state management solutions like Provider and BLoC. I'm always eager to learn new technologies and improve my craft.
+                                    I thrive on turning complex problems into simple, beautiful, and user-friendly designs. I&apos;m proficient in Dart, Firebase, and state management solutions like Provider and BLoC. I&apos;m always eager to learn new technologies and improve my craft.
                                 </p>
                                 <p>
-                                    When I'm not coding, you can find me exploring the latest tech trends, contributing to open-source projects, or enjoying a good cup of coffee.
+                                    When I&apos;m not coding, you can find me exploring the latest tech trends, contributing to open-source projects, or enjoying a good cup of coffee.
                                 </p>
                             </div>
                         </div>
@@ -262,7 +265,7 @@ export default function App() {
                             <h2 className="text-4xl font-bold text-white mb-3">Get In Touch</h2>
                             <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-cyan-400 mx-auto mb-8"></div>
                             <p className="text-gray-300 text-xl mb-10">
-                                Have a question or want to work together? Leave your details and I'll get back to you.
+                                Have a question or want to work together? Leave your details and I&apos;ll get back to you.
                             </p>
                             <form onSubmit={handleFormSubmit} className="space-y-6">
                                 <input
@@ -302,7 +305,7 @@ export default function App() {
                             </form>
                             {formStatus === 'success' && (
                                 <p className="mt-6 text-green-400 bg-green-900/50 py-3 px-4 rounded-lg">
-                                    Thank you for your message! I'll be in touch soon.
+                                    Thank you for your message! I&apos;ll be in touch soon.
                                 </p>
                             )}
                             <div className="flex justify-center space-x-8 mt-12">
@@ -364,7 +367,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
         const card = cardRef.current;
         if (!card) return;
 
-        const handleMouseMove = (e: MouseEvent) => {
+        const handleMouseMove = (e: globalThis.MouseEvent) => {
             const { left, top, width, height } = card.getBoundingClientRect();
             const x = (e.clientX - left - width / 2) / 25;
             const y = (e.clientY - top - height / 2) / 25;
@@ -375,11 +378,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
             card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
         };
 
-        card.addEventListener('mousemove', handleMouseMove as any);
+        card.addEventListener('mousemove', handleMouseMove);
         card.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
-            card.removeEventListener('mousemove', handleMouseMove as any);
+            card.removeEventListener('mousemove', handleMouseMove);
             card.removeEventListener('mouseleave', handleMouseLeave);
         };
     }, []);
@@ -395,8 +398,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
     return (
         <div ref={cardRef} className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-transform duration-300 ease-out group border border-gray-700 hover:border-purple-500/50 animate-fade-in" style={{ transformStyle: 'preserve-3d' }}>
             <div className="relative h-56 overflow-hidden">
-                <img src={imageUrl} alt={title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { e.currentTarget.src = 'https://placehold.co/600x400/1a202c/ffffff?text=Project'; }} />
+                <Image
+                    src={imageUrl}
+                    alt={title}
+                    width={600}
+                    height={224}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/1a202c/ffffff?text=Project'; }}
+                />
             </div>
             <div className="p-6 flex flex-col h-[calc(100%-14rem)]">
                 <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
@@ -426,8 +435,14 @@ const SkillBadge: React.FC<SkillBadgeProps> = ({ name, imageUrl }) => {
     return (
         <div className="flex flex-col items-center gap-2 text-center group">
             <div className="bg-gray-800/50 p-4 rounded-full border-2 border-transparent group-hover:border-cyan-400 group-hover:bg-cyan-900/50 transition-all duration-300">
-                <img src={imageUrl} alt={name} className="w-16 h-16 transition-transform duration-300 group-hover:scale-110"
-                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { e.currentTarget.style.display = 'none'; }} />
+                <Image
+                    src={imageUrl}
+                    alt={name}
+                    width={64}
+                    height={64}
+                    className="w-16 h-16 transition-transform duration-300 group-hover:scale-110"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                />
             </div>
             <p className="text-gray-300 font-medium transition-colors duration-300 group-hover:text-white">{name}</p>
         </div>
@@ -448,7 +463,7 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, label }) => {
         const link = linkRef.current;
         if (!link) return;
 
-        const handleMouseMove = (e: MouseEvent) => {
+        const handleMouseMove = (e: globalThis.MouseEvent) => {
             const { left, top, width, height } = link.getBoundingClientRect();
             const x = e.clientX - left - width / 2;
             const y = e.clientY - top - height / 2;
@@ -459,11 +474,11 @@ const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, label }) => {
             link.style.transform = 'translate(0, 0) scale(1)';
         };
 
-        link.addEventListener('mousemove', handleMouseMove as any);
+        link.addEventListener('mousemove', handleMouseMove);
         link.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
-            link.removeEventListener('mousemove', handleMouseMove as any);
+            link.removeEventListener('mousemove', handleMouseMove);
             link.removeEventListener('mouseleave', handleMouseLeave);
         };
     }, []);
