@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef, MouseEvent, ChangeEvent, FormEvent } from 'react';
-import { Smartphone, Linkedin, Github, Twitter, Menu, X, ArrowDown, Briefcase, Star, CheckCircle } from 'lucide-react';
+import {Linkedin, Github, Twitter, Menu, X, ArrowDown, Briefcase, Star, CheckCircle } from 'lucide-react';
 
 // --- MAIN APP COMPONENT ---
 export default function App() {
