@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef, MouseEvent, ChangeEvent, FormEvent } from 'react';
-import {Linkedin, Github, Twitter, Menu, X, ArrowDown, Briefcase, Star, CheckCircle } from 'lucide-react';
+import { Smartphone, Linkedin, Github, Twitter, Menu, X, ArrowDown, Briefcase, Star, CheckCircle } from 'lucide-react';
 
 // --- MAIN APP COMPONENT ---
 export default function App() {
@@ -118,7 +118,7 @@ export default function App() {
                 <section id="home" className="min-h-screen flex flex-col justify-center items-center relative bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
                     <div className="absolute inset-0 bg-black/70"></div>
                     <div className="container mx-auto px-6 text-center relative z-10">
-                        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down bg-clip-text bg-gradient-to-r from-white to-gray-400">
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
                             Himanshu Choudhary
                         </h1>
                         <p className="text-2xl md:text-3xl text-gray-300 mb-8 animate-fade-in-up">
