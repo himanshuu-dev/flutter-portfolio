@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, MouseEvent, ChangeEvent, FormEvent } from 'react';
 import { Smartphone, Linkedin, Github, Twitter, Menu, X, ArrowDown, Briefcase, Star, CheckCircle } from 'lucide-react';
 
 // --- MAIN APP COMPONENT ---
@@ -10,18 +10,17 @@ export default function App() {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [formStatus, setFormStatus] = useState('');
 
-
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
         };
-        const handleMouseMove = (e) => {
+        const handleMouseMove = (e: MouseEvent<Document>) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
 
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener('mousemove', handleMouseMove);
-        
+        window.addEventListener('mousemove', handleMouseMove as any);
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -31,21 +30,17 @@ export default function App() {
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.animate-fade-in').forEach(el => {
-            observer.observe(el);
+            observer.observe(el as Element);
         });
 
         // Lock body scroll when mobile menu is open
-        if (isMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-        
+        document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mousemove', handleMouseMove as any);
             observer.disconnect();
-            document.body.style.overflow = 'auto'; // Cleanup on component unmount
+            document.body.style.overflow = 'auto';
         };
     }, [isMenuOpen]);
 
@@ -56,33 +51,32 @@ export default function App() {
         { href: '#contact', label: 'Contact' },
     ];
 
-    const scrollToSection = (e, href) => {
+    const scrollToSection = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
         document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
         setIsMenuOpen(false);
     };
-    
-    const handleFormChange = (e) => {
+
+    const handleFormChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setFormStatus('sending');
-        // Simulate API call
         setTimeout(() => {
             console.log('Form submitted:', formData);
             setFormStatus('success');
             setFormData({ name: '', email: '', message: '' });
-            setTimeout(() => setFormStatus(''), 5000); // Reset status after 5 seconds
+            setTimeout(() => setFormStatus(''), 5000);
         }, 2000);
     };
 
     return (
         <div className="bg-gray-900 text-gray-100 font-sans antialiased selection:bg-purple-500 selection:text-white relative">
-             <div 
-                className="pointer-events-none fixed inset-0 z-30 transition duration-300" 
+            <div
+                className="pointer-events-none fixed inset-0 z-30 transition duration-300"
                 style={{
                     background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(29, 78, 216, 0.15), transparent 80%)`
                 }}
@@ -107,11 +101,11 @@ export default function App() {
                     </div>
                 </div>
             </header>
-            
+
             {/* Mobile Menu Overlay */}
             <div className={`md:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-sm z-40 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                 <nav className="flex flex-col items-center justify-center h-full space-y-8">
-                     {navLinks.map(link => (
+                    {navLinks.map(link => (
                         <a key={link.href} href={link.href} onClick={(e) => scrollToSection(e, link.href)} className="text-gray-300 hover:text-white transition-colors duration-300 text-3xl font-bold">
                             {link.label}
                         </a>
@@ -119,56 +113,52 @@ export default function App() {
                 </nav>
             </div>
 
-
             <main>
                 {/* Hero Section */}
-                <section id="home" className="min-h-screen flex flex-col justify-center items-center relative bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2070&auto=format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}>
+                <section id="home" className="min-h-screen flex flex-col justify-center items-center relative bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}>
                     <div className="absolute inset-0 bg-black/70"></div>
                     <div className="container mx-auto px-6 text-center relative z-10">
-                        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down bg-clip-text bg-gradient-to-r from-white to-gray-400">
                             Himanshu Choudhary
                         </h1>
                         <p className="text-2xl md:text-3xl text-gray-300 mb-8 animate-fade-in-up">
                             Flutter Developer | Crafting Beautiful & Performant Mobile Apps
                         </p>
-                        
-                        {/* Stats Section moved here */}
-                        <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 text-center my-12 animate-fade-in-up" style={{animationDelay: '400ms'}}>
+                        <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 text-center my-12 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
                             <div className="flex items-center gap-3">
-                                <Briefcase size={40} className="text-cyan-300"/>
+                                <Briefcase size={40} className="text-cyan-300" />
                                 <div>
                                     <p className="text-3xl font-bold text-white">2.6+</p>
                                     <p className="text-gray-400 text-sm">Years of Experience</p>
                                 </div>
                             </div>
-                             <div className="flex items-center gap-3">
-                                <CheckCircle size={40} className="text-cyan-300"/>
+                            <div className="flex items-center gap-3">
+                                <CheckCircle size={40} className="text-cyan-300" />
                                 <div>
                                     <p className="text-3xl font-bold text-white">20+</p>
                                     <p className="text-gray-400 text-sm">Projects Completed</p>
                                 </div>
                             </div>
-                             <div className="flex items-center gap-3">
-                                <Star size={40} className="text-cyan-300"/>
+                            <div className="flex items-center gap-3">
+                                <Star size={40} className="text-cyan-300" />
                                 <div>
                                     <p className="text-3xl font-bold text-white">99%</p>
                                     <p className="text-gray-400 text-sm">Client Satisfaction</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="flex justify-center items-center gap-4 animate-fade-in-up" style={{animationDelay: '600ms'}}>
+                        <div className="flex justify-center items-center gap-4 animate-fade-in-up" style={{ animationDelay: '600ms' }}>
                             <a href="#projects" onClick={(e) => scrollToSection(e, '#projects')} className="bg-gradient-to-r from-purple-500 to-cyan-400 hover:from-purple-600 hover:to-cyan-500 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 inline-block shadow-lg shadow-purple-500/30 animate-pulse-slow">
                                 View My Work
                             </a>
-                             <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="border-2 border-cyan-400 text-cyan-400 font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 hover:bg-cyan-400 hover:text-white inline-block shadow-lg hover:shadow-cyan-500/30">
+                            <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')} className="border-2 border-cyan-400 text-cyan-400 font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 hover:bg-cyan-400 hover:text-white inline-block shadow-lg hover:shadow-cyan-500/30">
                                 Hire Me
                             </a>
                         </div>
                     </div>
                     <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 animate-pulse">
                         <a href="#about" onClick={(e) => scrollToSection(e, '#about')} aria-label="Scroll down">
-                            <ArrowDown size={32} className="text-white/70"/>
+                            <ArrowDown size={32} className="text-white/70" />
                         </a>
                     </div>
                 </section>
@@ -183,11 +173,11 @@ export default function App() {
                         <div className="flex flex-col md:flex-row items-center gap-12 animate-fade-in">
                             <div className="md:w-1/3 text-center">
                                 <div className="relative inline-block group">
-                                    <img 
-                                        src="https://placehold.co/400x400/1a202c/ffffff?text=HC" 
-                                        alt="Himanshu Choudhary" 
+                                    <img
+                                        src="https://placehold.co/400x400/1a202c/ffffff?text=HC"
+                                        alt="Himanshu Choudhary"
                                         className="rounded-full w-64 h-64 mx-auto border-4 border-purple-500/50 shadow-lg transition-transform duration-500 group-hover:scale-105"
-                                        onError={(e) => e.target.src='https://placehold.co/400x400/1a202c/ffffff?text=HC'}
+                                        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { e.currentTarget.src = 'https://placehold.co/400x400/1a202c/ffffff?text=HC'; }}
                                     />
                                     <div className="absolute inset-0 rounded-full border-4 border-cyan-400/50 animate-spin-slow"></div>
                                 </div>
@@ -218,7 +208,7 @@ export default function App() {
                             <ProjectCard
                                 title="E-Commerce App"
                                 description="A feature-rich e-commerce application built with Flutter, featuring product browsing, cart management, and a secure checkout process using Firebase."
-                                imageUrl="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1932&auto-format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                imageUrl="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 tags={['Flutter', 'Firebase', 'Provider']}
                                 githubUrl="#"
                                 playStoreUrl="#"
@@ -227,7 +217,7 @@ export default function App() {
                             <ProjectCard
                                 title="Fitness Tracker"
                                 description="A mobile app to track workouts, set fitness goals, and visualize progress with charts and statistics. Integrated with device sensors for real-time data."
-                                imageUrl="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto-format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                imageUrl="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 tags={['Flutter', 'BLoC', 'Charts', 'SQLite']}
                                 githubUrl="#"
                                 playStoreUrl="#"
@@ -235,18 +225,18 @@ export default function App() {
                             <ProjectCard
                                 title="Chat Application"
                                 description="A real-time chat application using Flutter and Firebase. Supports text messages, image sharing, and push notifications for an interactive experience."
-                                imageUrl="https://images.unsplash.com/photo-1522098635833-216c03d81f44?q=80&w=1935&auto-format&fit=crop&ixlib-rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                imageUrl="https://images.unsplash.com/photo-1522098635833-216c03d81f44?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 tags={['Flutter', 'Firebase Auth', 'Firestore']}
                                 githubUrl="#"
                             />
                         </div>
                     </div>
                 </section>
-                
+
                 {/* Skills Section */}
                 <section id="skills" className="py-24 bg-gray-900/80 backdrop-blur-sm">
                     <div className="container mx-auto px-6">
-                         <div className="text-center mb-16 animate-fade-in">
+                        <div className="text-center mb-16 animate-fade-in">
                             <h2 className="text-4xl font-bold text-white mb-3">Technical Skills</h2>
                             <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-cyan-400 mx-auto"></div>
                         </div>
@@ -274,50 +264,47 @@ export default function App() {
                             <p className="text-gray-300 text-xl mb-10">
                                 Have a question or want to work together? Leave your details and I'll get back to you.
                             </p>
-                            
                             <form onSubmit={handleFormSubmit} className="space-y-6">
-                                <input 
-                                    type="text" 
-                                    name="name" 
-                                    placeholder="Your Name" 
-                                    required 
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Your Name"
+                                    required
                                     value={formData.name}
                                     onChange={handleFormChange}
                                     className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
                                 />
-                                <input 
-                                    type="email" 
-                                    name="email" 
-                                    placeholder="Your Email" 
-                                    required 
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Your Email"
+                                    required
                                     value={formData.email}
                                     onChange={handleFormChange}
                                     className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
                                 />
-                                <textarea 
-                                    name="message" 
-                                    placeholder="Your Message" 
-                                    required 
-                                    rows="5"
+                                <textarea
+                                    name="message"
+                                    placeholder="Your Message"
+                                    required
+                                    rows={5}
                                     value={formData.message}
                                     onChange={handleFormChange}
                                     className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
                                 ></textarea>
-                                <button 
-                                    type="submit" 
+                                <button
+                                    type="submit"
                                     disabled={formStatus === 'sending'}
                                     className="w-full bg-gradient-to-r from-purple-500 to-cyan-400 hover:from-purple-600 hover:to-cyan-500 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
                                 </button>
                             </form>
-                            
                             {formStatus === 'success' && (
                                 <p className="mt-6 text-green-400 bg-green-900/50 py-3 px-4 rounded-lg">
                                     Thank you for your message! I'll be in touch soon.
                                 </p>
                             )}
-
                             <div className="flex justify-center space-x-8 mt-12">
                                 <SocialLink href="#" icon={<Github size={32} />} label="GitHub" />
                                 <SocialLink href="#" icon={<Linkedin size={32} />} label="LinkedIn" />
@@ -360,14 +347,24 @@ export default function App() {
 }
 
 // Project Card Component
-const ProjectCard = ({ title, description, imageUrl, tags, githubUrl, playStoreUrl, appStoreUrl }) => {
-    const cardRef = useRef(null);
+type ProjectCardProps = {
+    title: string;
+    description: string;
+    imageUrl: string;
+    tags: string[];
+    githubUrl?: string;
+    playStoreUrl?: string;
+    appStoreUrl?: string;
+};
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl, tags, githubUrl, playStoreUrl, appStoreUrl }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const card = cardRef.current;
         if (!card) return;
 
-        const handleMouseMove = (e) => {
+        const handleMouseMove = (e: MouseEvent) => {
             const { left, top, width, height } = card.getBoundingClientRect();
             const x = (e.clientX - left - width / 2) / 25;
             const y = (e.clientY - top - height / 2) / 25;
@@ -378,11 +375,11 @@ const ProjectCard = ({ title, description, imageUrl, tags, githubUrl, playStoreU
             card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
         };
 
-        card.addEventListener('mousemove', handleMouseMove);
+        card.addEventListener('mousemove', handleMouseMove as any);
         card.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
-            card.removeEventListener('mousemove', handleMouseMove);
+            card.removeEventListener('mousemove', handleMouseMove as any);
             card.removeEventListener('mouseleave', handleMouseLeave);
         };
     }, []);
@@ -398,14 +395,15 @@ const ProjectCard = ({ title, description, imageUrl, tags, githubUrl, playStoreU
     return (
         <div ref={cardRef} className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg transition-transform duration-300 ease-out group border border-gray-700 hover:border-purple-500/50 animate-fade-in" style={{ transformStyle: 'preserve-3d' }}>
             <div className="relative h-56 overflow-hidden">
-                <img src={imageUrl} alt={title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onError={(e) => e.target.src='https://placehold.co/600x400/1a202c/ffffff?text=Project'}/>
+                <img src={imageUrl} alt={title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { e.currentTarget.src = 'https://placehold.co/600x400/1a202c/ffffff?text=Project'; }} />
             </div>
             <div className="p-6 flex flex-col h-[calc(100%-14rem)]">
                 <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
                 <p className="text-gray-400 mb-4 flex-grow">{description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                     {tags.map(tag => (
-                        <span key={tag} className="bg-gray-700 text-cyan-300 text-sm font-semibold px-3 py-1 rounded-full">{tag}</span>
+                        <span key={`${title}-${tag}`} className="bg-gray-700 text-cyan-300 text-sm font-semibold px-3 py-1 rounded-full">{tag}</span>
                     ))}
                 </div>
                 <div className="flex space-x-4 mt-auto pt-4 border-t border-gray-700/50">
@@ -419,11 +417,17 @@ const ProjectCard = ({ title, description, imageUrl, tags, githubUrl, playStoreU
 };
 
 // Skill Badge Component
-const SkillBadge = ({ name, imageUrl }) => {
+type SkillBadgeProps = {
+    name: string;
+    imageUrl: string;
+};
+
+const SkillBadge: React.FC<SkillBadgeProps> = ({ name, imageUrl }) => {
     return (
         <div className="flex flex-col items-center gap-2 text-center group">
             <div className="bg-gray-800/50 p-4 rounded-full border-2 border-transparent group-hover:border-cyan-400 group-hover:bg-cyan-900/50 transition-all duration-300">
-                 <img src={imageUrl} alt={name} className="w-16 h-16 transition-transform duration-300 group-hover:scale-110" onError={(e) => e.target.style.display='none'}/>
+                <img src={imageUrl} alt={name} className="w-16 h-16 transition-transform duration-300 group-hover:scale-110"
+                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { e.currentTarget.style.display = 'none'; }} />
             </div>
             <p className="text-gray-300 font-medium transition-colors duration-300 group-hover:text-white">{name}</p>
         </div>
@@ -431,14 +435,20 @@ const SkillBadge = ({ name, imageUrl }) => {
 };
 
 // Social Link Component
-const SocialLink = ({ href, icon, label }) => {
-    const linkRef = useRef(null);
+type SocialLinkProps = {
+    href: string;
+    icon: React.ReactNode;
+    label: string;
+};
+
+const SocialLink: React.FC<SocialLinkProps> = ({ href, icon, label }) => {
+    const linkRef = useRef<HTMLAnchorElement>(null);
 
     useEffect(() => {
         const link = linkRef.current;
         if (!link) return;
 
-        const handleMouseMove = (e) => {
+        const handleMouseMove = (e: MouseEvent) => {
             const { left, top, width, height } = link.getBoundingClientRect();
             const x = e.clientX - left - width / 2;
             const y = e.clientY - top - height / 2;
@@ -449,11 +459,11 @@ const SocialLink = ({ href, icon, label }) => {
             link.style.transform = 'translate(0, 0) scale(1)';
         };
 
-        link.addEventListener('mousemove', handleMouseMove);
+        link.addEventListener('mousemove', handleMouseMove as any);
         link.addEventListener('mouseleave', handleMouseLeave);
 
         return () => {
-            link.removeEventListener('mousemove', handleMouseMove);
+            link.removeEventListener('mousemove', handleMouseMove as any);
             link.removeEventListener('mouseleave', handleMouseLeave);
         };
     }, []);
