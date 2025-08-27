@@ -20,22 +20,22 @@ const Icon: React.FC<{ name: string; className?: string }> = ({ name, className 
         strokeWidth: stroke,
     };
     const paths: Record<string, React.ReactNode> = {
-        sun: <circle cx="12" cy="12" r="4" {...(common as any)} />,
-        moon: <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" {...(common as any)} />,
-        bolt: <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" {...(common as any)} />,
-        code: <path d="M9 18l-6-6 6-6M15 6l6 6-6 6" {...(common as any)} />,
-        sparkles: <path d="M5 3l2 4 4 2-4 2-2 4-2-4-4-2 4-2 2-4zM19 11l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" {...(common as any)} />,
-        link: <path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10.5 5" {...(common as any)} />,
-        briefcase: <path d="M3 7h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7zm5-4h8a2 2 0 0 1 2 2v2H6V5a2 2 0 0 1 2-2z" {...(common as any)} />,
-        mail: <path d="M3 5h18v14H3z" {...(common as any)} />,
-        send: <path d="M22 2L11 13" {...(common as any)} />,
-        star: <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" {...(common as any)} />,
-        check: <path d="M20 6L9 17l-5-5" {...(common as any)} />,
-        android: <path d="M8 3l1 2m6-2l-1 2M6 8h12v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8z" {...(common as any)} />,
-        apple: <path d="M16 13c0 3-2 7-4 7s-4-4-4-7 2-5 4-5 4 2 4 5zm1-7c-.7 1-2 2-3 2-1 0-2-1-2-2 0-.8.6-1.9 1.3-2.6C14.5 2.7 15.6 2 16.4 2c.2 0 .4 0 .6.1-.1.9-.5 1.8-1 2.9z" {...(common as any)} />,
-        ts: <path d="M3 5h18v14H3z" {...(common as any)} />,
-        tailwind: <path d="M4 14c2-6 6-6 8-4s4 2 8-2c-2 6-6 6-8 4s-4-2-8 2z" {...(common as any)} />,
-        firebase: <path d="M6 19L12 3l6 16-6 2z" {...(common as any)} />,
+        sun: <circle cx="12" cy="12" r="4" {...(common)} />,
+        moon: <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" {...(common)} />,
+        bolt: <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" {...(common)} />,
+        code: <path d="M9 18l-6-6 6-6M15 6l6 6-6 6" {...(common)} />,
+        sparkles: <path d="M5 3l2 4 4 2-4 2-2 4-2-4-4-2 4-2 2-4zM19 11l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" {...(common)} />,
+        link: <path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10.5 5" {...(common)} />,
+        briefcase: <path d="M3 7h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7zm5-4h8a2 2 0 0 1 2 2v2H6V5a2 2 0 0 1 2-2z" {...(common)} />,
+        mail: <path d="M3 5h18v14H3z" {...(common)} />,
+        send: <path d="M22 2L11 13" {...(common)} />,
+        star: <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z" {...(common)} />,
+        check: <path d="M20 6L9 17l-5-5" {...(common)} />,
+        android: <path d="M8 3l1 2m6-2l-1 2M6 8h12v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8z" {...(common)} />,
+        apple: <path d="M16 13c0 3-2 7-4 7s-4-4-4-7 2-5 4-5 4 2 4 5zm1-7c-.7 1-2 2-3 2-1 0-2-1-2-2 0-.8.6-1.9 1.3-2.6C14.5 2.7 15.6 2 16.4 2c.2 0 .4 0 .6.1-.1.9-.5 1.8-1 2.9z" {...(common)} />,
+        ts: <path d="M3 5h18v14H3z" {...(common)} />,
+        tailwind: <path d="M4 14c2-6 6-6 8-4s4 2 8-2c-2 6-6 6-8 4s-4-2-8 2z" {...(common)} />,
+        firebase: <path d="M6 19L12 3l6 16-6 2z" {...(common)} />,
     };
     return (
         <svg viewBox="0 0 24 24" className={className || "w-5 h-5"} aria-hidden>
@@ -97,7 +97,7 @@ const DATA = {
     name: "Himanshu Choudhary",
     role: "Flutter Developer • Full‑Stack Learner",
     about: "Flutter developer with 2.5+ years experience, focused on clean architecture, Riverpod state, and delightful UX. Built 20+ shipped projects with 99% quick response across clients.",
-    avatar: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=800&auto=format&fit=crop",
+    avatar: "/dp.png",
     stats: [
         { label: "Years", value: "2.5+" },
         { label: "Projects", value: "20+" },
@@ -179,7 +179,7 @@ const SkillsGrid: React.FC = () => {
                 {SKILLS.map((s) => (
                     <div key={s.name} title={s.hint || s.name} className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur hover:-translate-y-0.5 transition [transform-style:preserve-3d] [perspective:800px]">
                         <div className="flex items-center gap-3 p-3">
-                            <Image src={s.logo} alt={`${s.name} logo`} width={24} height={24} className="h-6 w-6 object-contain select-none" />
+                            <Image src={s.logo} alt={`${s.name} logo`} width={24} height={24} className="h-6 w-6 object-contain select-none" unoptimized />
                             <span className="text-sm">{s.name}</span>
                         </div>
                         <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-fuchsia-500/10 via-cyan-400/10 to-emerald-400/10" />
@@ -249,7 +249,7 @@ export default function Page() {
             <section className="relative mx-auto max-w-6xl px-4 pt-16 md:pt-24">
                 <div className="grid gap-10 md:grid-cols-[1.1fr_.9fr] items-center">
                     <div>
-                        <Chip>Available for freelance</Chip>
+                        <Chip>Available for fulltime or freelance</Chip>
                         <h1 className={`mt-4 text-4xl md:text-6xl font-bold leading-tight ${gtxt}`}> {DATA.name} </h1>
                         <p className="mt-3 text-lg text-slate-600 dark:text-slate-300">{DATA.role}</p>
                         <p className="mt-5 text-slate-600 dark:text-slate-300 max-w-xl">{DATA.about}</p>
@@ -266,7 +266,7 @@ export default function Page() {
                         <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-fuchsia-500/20 via-cyan-500/10 to-emerald-500/20 blur-2xl animate-pulse" />
                         <Glass className="relative p-4 ring-1 ring-white/10">
                             <div ref={parallaxRef} className="rounded-2xl overflow-hidden">
-                                <Image src={DATA.avatar} alt={DATA.name} width={720} height={720} className="h-[380px] w-full object-cover rounded-xl" />
+                                <Image src={DATA.avatar} alt={DATA.name} width={720} height={720} className="h-[380px] w-full object-cover rounded-xl"  unoptimized/>
                             </div>
                             <div className="mt-4 flex items-center justify-between">
                                 <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-300">
@@ -300,7 +300,7 @@ export default function Page() {
                         <div key={p.title} className="group [transform-style:preserve-3d] [perspective:1000px]">
                             <Glass className="overflow-hidden transition will-change-transform group-hover:[transform:rotateX(2deg)_rotateY(-3deg)]">
                                 <div className="relative">
-                                    <Image src={p.image} alt={p.title} width={800} height={600} className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                    <Image src={p.image} alt={p.title} width={800} height={600} className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105" unoptimized/>
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0" />
                                 </div>
                                 <div className="p-5">
@@ -310,10 +310,10 @@ export default function Page() {
                                         {p.tags.map(t => <span key={t} className="text-xs rounded-full bg-white/10 px-3 py-1">{t}</span>)}
                                     </div>
                                     <div className="mt-4 flex items-center justify-between gap-2">
-                                        <Link href={(p as any).playstore || '#'} className="inline-flex items-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-3 py-2 text-sm hover:-translate-y-0.5 transition">
+                                        <Link href={(p).playstore || '#'} className="inline-flex items-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-3 py-2 text-sm hover:-translate-y-0.5 transition">
                                             <Icon name="android" className="w-4 h-4" /> Play Store
                                         </Link>
-                                        <Link href={(p as any).appstore || '#'} className="inline-flex items-center gap-2 rounded-xl border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sm hover:-translate-y-0.5 transition">
+                                        <Link href={(p).appstore || '#'} className="inline-flex items-center gap-2 rounded-xl border border-sky-400/30 bg-sky-400/10 px-3 py-2 text-sm hover:-translate-y-0.5 transition">
                                             <Icon name="apple" className="w-4 h-4" /> App Store
                                         </Link>
                                     </div>
