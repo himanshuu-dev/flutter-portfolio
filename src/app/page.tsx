@@ -179,7 +179,7 @@ const SkillsGrid: React.FC = () => {
                 {SKILLS.map((s) => (
                     <div key={s.name} title={s.hint || s.name} className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur hover:-translate-y-0.5 transition [transform-style:preserve-3d] [perspective:800px]">
                         <div className="flex items-center gap-3 p-3">
-                            <img src={s.logo} alt={`${s.name} logo`} width={24} height={24} className="h-6 w-6 object-contain select-none" />
+                            <Image src={s.logo} alt={`${s.name} logo`} width={24} height={24} className="h-6 w-6 object-contain select-none" />
                             <span className="text-sm">{s.name}</span>
                         </div>
                         <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-r from-fuchsia-500/10 via-cyan-400/10 to-emerald-400/10" />
